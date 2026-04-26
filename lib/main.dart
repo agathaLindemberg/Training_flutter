@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(AppWidget(title: 'Hello World'));
+  runApp(AppWidget(title: 'Contador: '));
 }
 
 class AppWidget extends StatelessWidget {
@@ -11,11 +11,37 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        title,
-        textDirection: TextDirection.ltr,
-        style: TextStyle(color: Colors.black, fontSize: 50.0),
+    return MaterialApp(
+      theme: ThemeData(primaryColor: Colors.red),
+      home: HomePage(title: title),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  final String title;
+
+  const HomePage({super.key, required this.title});
+
+  @override
+  State<HomePage> createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: GestureDetector(
+          child: Text(widget.title + counter.toString()),
+          onTap: () {
+            setState(() {
+              counter++;
+            });
+          },
+        ),
       ),
     );
   }
